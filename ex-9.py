@@ -1,29 +1,47 @@
-text_lines = []
-while True:
-    line = input()
-    if line == "":
-        break
-    text_lines.append(line)
+import string
 
-text = " ".join(text_lines).lower()
-for i in ",.!?;:-":
-    text = text.replace(i, "")
 
-words = text.split()
-counts = {}
-order = []
+def read_text() -> str:
+    print("Введите текст:")
+    lines = []
+    while True:
+        line = input()
+        if not line:
+            break
+        lines.append(line)
+    return " ".join(lines)
 
-for word in words:
-    if word not in counts:
-        counts[word] = 1
-        order.append(word)
-    else:
-        counts[word] += 1
 
-for i in range(len(order) - 1):
-    for j in range(i + 1, len(order)):
-        if counts[order[j]] > counts[order[i]]:
-            order[i], order[j] = order[j], order[i]
+def get_words(text) -> list:
+    words = []
+    for token in text.split():
+        word = token.strip(string.punctuation).lower()
+        if word:
+            words.append(word)
+    return words
 
-for w in order:
-    print(w)
+
+def sort_words_by_frequency(words) -> list:
+    frequency = {}
+    order = {}
+
+    for index, word in enumerate(words):
+        frequency[word] = frequency.get(word, 0) + 1
+        if word not in order:
+            order[word] = index
+
+    sorted_words = sorted(frequency.keys(),\
+                          key=lambda w: (-frequency[w], order[w]))
+    return sorted_words
+
+
+def main() -> None:
+    text = read_text()
+    words = get_words(text)
+    sorted_words = sort_words_by_frequency(words)
+    for i in sorted_words:
+        print(i)
+
+
+if __name__ == "__main__":
+    main()
