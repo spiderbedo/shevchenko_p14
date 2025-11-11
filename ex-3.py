@@ -1,6 +1,5 @@
 import string
 
-
 def words_from_sentence(sentence: str) -> list:
     if not sentence:
         return []
