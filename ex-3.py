@@ -1,6 +1,6 @@
 import string
 
-def words_from_sentence(sentence: str) -> list:
+def words_from_sentence(sentence) -> list:
     if not sentence:
         return []
 
