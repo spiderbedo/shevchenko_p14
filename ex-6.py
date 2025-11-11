@@ -1,10 +1,22 @@
 import math
 
-n = int(input())
-divisors = []
-for i in range(1, int(math.sqrt(n)) + 1):
-    if n % i == 0:
-        divisors.append(i)
-        if i != n // i:
-            divisors.append(n // i)
-print(divisors)
+def find_divisors(num):
+    divisors = set()  
+    for i in range(1, int(math.sqrt(num)) + 1):
+        if num % i == 0:
+            divisors.add(i)
+            divisors.add(num // i)  
+    return list(divisors)
+
+
+def main() -> None:
+    try:
+        num = int(input("Введите целое число: "))
+        result = find_divisors(num)
+        print("Делители:", result)
+    except ValueError as exc:
+        print(exc)
+
+
+if __name__ == "__main__":
+    main()
